@@ -1,0 +1,30 @@
+{
+  "name": "BoscoUI",
+  "version": "1.0",
+  "main": "index.html",
+  "description": "Interface for Bosco",
+  "keywords": [ "bosco", "htcondor", "condor" ],
+  "window": {
+    "title": "BoscoUI",
+    "icon": "PromotionalIcon128x128.png",
+    "toolbar": true,
+    "frame": true,
+    "toolbar": true,
+    "width": 800,
+    "height": 500,
+    "position": "mouse",
+    "min_width": 400,
+    "min_height": 200,
+    "max_width": 800,
+    "max_height": 600
+  },
+  "webkit": {
+    "plugin": true
+  },
+  "dependencies": {
+    "htcondor": ">= 0.0.19",
+    "grunt-contrib-coffee": ">= 0.10",
+    "grunt-contrib-less": ">= 0.11.0",
+    "grunt-node-webkit-builder": ">= 0.1.21"
+  }
+}

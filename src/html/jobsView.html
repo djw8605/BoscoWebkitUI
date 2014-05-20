@@ -1,0 +1,38 @@
+
+
+<div class="row">
+  <div class="col-md-4">
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="job-table table table-condensed table-striped table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th>ID</th>
+          <th>Submitted</th>
+          <th>Runtime</th>
+          <th>State</th>
+          <th>Location</th>
+          <th>Command</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="job in jobs" ng-class="{danger: checkJobHeld(job) && !selected, success: checkJobRunning(job) && !selected, warning: selected}">
+          <td><input type="checkbox" ng-model="selected"></td>
+          <td>{{ job.id }}</td>
+          <td>{{ job.submitted }}</td>
+          <td>{{ job.runtime }}</td>
+          <td>{{ job.state }}</td>
+          <td>{{ job.location }}</td>
+          <td>{{ job.cmd }}</td>
+
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>

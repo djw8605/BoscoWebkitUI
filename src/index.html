@@ -1,0 +1,41 @@
+<html ng-app="boscouiApp">
+<head>
+  <script src="lib/jquery-2.1.1.js"></script>
+  <script src="lib/angular.js"></script>
+  <script src="lib/angular-route.js"></script>
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/application.css" rel="stylesheet">
+  <script src="lib/bootstrap.js"></script>
+
+  <script src="js/jobsService.js"></script>
+  <script src="js/sidebarCtrl.js"></script>
+  <script src="js/jobsCtrl.js"></script>
+  <script src="js/app.js"></script>
+
+
+
+
+<title>Bosco UI</title>
+</head>
+<body>
+
+<div id="wrapper">
+  <div id="sidebar-wrapper" ng-controller="sidebarController">
+    <ul class="sidebar-nav">
+      <li>Jobs</li>
+      <li>Clusters</li>
+      <li>Debug</li>
+      <li class="sidebar-divider">Cluster Status</li>
+      <li ng-repeat="cluster in clusters">
+      <a ng-href="#cluster/{{ cluster.id }}">{{ cluster.name }}</a>
+    </ul>
+
+  </div>
+  <div id="page-content-wrapper">
+    <div ng-view class="view-animate">
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
