@@ -27,14 +27,18 @@
       <li>Debug</li>
       <li class="sidebar-divider">Cluster Status</li>
       <li ng-repeat="cluster in clusters" class="cluster-select">
+        <hr ng-show="$first" />
         <a ng-href="#cluster/{{ cluster.id }}">{{ cluster.name }}
           <div class="pull-right status">
-            {{ cluster.errored }}
+            <div class="errored">
+              {{ cluster.errored }}
+            </div>
             <div class="running">
               {{ cluster.running }}
             </div>
           </div>
         </a>
+        <hr />
       </li>
     </ul>
 

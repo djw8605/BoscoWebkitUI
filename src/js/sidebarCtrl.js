@@ -9,10 +9,14 @@
       this.clusters = [
         {
           name: 'Tusker',
-          id: 'tusker'
+          id: 'tusker',
+          errored: 4,
+          running: 10
         }, {
           name: 'Crane',
-          id: 'crane'
+          id: 'crane',
+          errored: 12,
+          running: 3
         }
       ];
       this.$scope.clusters = this.clusters;
