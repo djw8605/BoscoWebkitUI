@@ -4,10 +4,11 @@
   jobsControllerModule = angular.module('boscouiApp.jobsController', ['boscouiApp.jobsService']);
 
   jobsControllerModule.controller('jobsController', jobsController = (function() {
-    function jobsController($scope, $log, jobsService) {
+    function jobsController($scope, $log, jobsService, $location) {
       this.$scope = $scope;
       this.$log = $log;
       this.jobsService = jobsService;
+      this.$location = $location;
       this.$scope.jobs = [
         {
           id: '10401.0',
@@ -80,6 +81,10 @@
           _this.$scope.jobs = _this.formatJobs(jobs);
           _this.$log.info("Got jobs " + _this.$scope.jobs);
           return _this.$log.info(_this.$scope.jobs);
+        };
+      })(this), (function(_this) {
+        return function(error) {
+          return _this.$location.path("/addcluster_warning");
         };
       })(this));
     };
