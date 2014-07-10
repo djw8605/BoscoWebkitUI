@@ -4,3 +4,7 @@ webkitbuilds
 *.dmg
 
 src/css/application.css
+
+src/js/app.js
+
+src/js/jobsCtrl.js
