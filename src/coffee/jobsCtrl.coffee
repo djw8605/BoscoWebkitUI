@@ -3,7 +3,7 @@ jobsControllerModule = angular.module 'boscouiApp.jobsController', ['boscouiApp.
 jobsControllerModule.controller 'jobsController',
   class jobsController
 
-    constructor: (@$scope, @$log, @jobsService) ->
+    constructor: (@$scope, @$log, @jobsService, @$location) ->
       @$scope.jobs = [
         {id: '10401.0', submitted: '5/16 16:57', runtime: '0+00:00:00', state: 'I', cmd: 'run_test.sh', location: 'Tusker'},
         {id: '10402.0', submitted: '5/16 16:57', runtime: '0+00:00:00', state: 'H', cmd: 'run_test.sh'},
@@ -53,6 +53,10 @@ jobsControllerModule.controller 'jobsController',
 
         @$log.info("Got jobs #{@$scope.jobs}")
         @$log.info(@$scope.jobs)
+      , (error) =>
+        @$location.path ( "/addcluster_warning" )
+        
+      
 
 
 

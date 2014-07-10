@@ -1,0 +1,39 @@
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-5">
+      
+      <form role="form">
+        <fieldset>
+          <legend>Cluster Information</legend>
+          <div class="form-group">
+            <label for="remoteHostname">Hostname</label>
+            <input type="text" class="form-control" id="remoteHostname" ng-model="cluster.hostname" placeholder="example.com">
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" ng-model="cluster.password" placeholder="*******">
+          </div>
+        </fieldset>
+        
+        <button type="submit" class="btn btn-default" ng-click="startConnection(cluster)">Connect</button>
+        
+      </form>
+      
+      <div>
+        {{ output }}
+      </div>
+    </div>
+    
+    
+    <div class="col-sm-7">
+      This cluster information is not stored locally.  Once a successful 
+      connection has been established to the remote cluster, a persistent 
+      connection is maintined while the application is running.
+      
+    </div>
+  </div>
+  
+</div>

@@ -10,13 +10,13 @@
     "toolbar": true,
     "frame": true,
     "toolbar": true,
-    "width": 800,
+    "width": 1000,
     "height": 500,
     "position": "mouse",
     "min_width": 400,
     "min_height": 200,
-    "max_width": 800,
-    "max_height": 600
+    "_max_width": 800,
+    "_max_height": 600
   },
   "webkit": {
     "plugin": true
