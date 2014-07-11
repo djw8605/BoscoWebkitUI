@@ -3,7 +3,30 @@
 addClusterModule = angular.module('boscouiApp.addClusterController', []);
 
 
-addClusterModule.controller('addClusterController', ['$scope', '$log', function($scope, $log) {
+addClusterModule.controller('addClusterController', ['$scope', '$log', '$timeout', function($scope, $log, $timeout) {
+  
+  
+  var conn = undefined;
+  
+  tryconnection = function () {
+
+    consoleLog("Second connection ready");
+    conn.exec('hostname -f', function(err, stream) {
+      stream.on('exit', function(code, signal) {
+        consoleLog('Stream :: exit :: code: ' + code + ', signal: ' + signal, logseverity.WARN);
+      }).on('close', function() {
+        consoleLog('Stream :: close');
+        conn.end();
+      }).on('data', function(data) {
+        consoleLog('STDOUT: ' + data);
+      }).stderr.on('data', function(data) {
+        consoleLog('STDERR: ' + data, logseverity.ERROR);
+      });
+    });
+    
+
+  }
+  
   
   $scope.startConnection = function (cluster) {
     clearConsole();
@@ -16,20 +39,26 @@ addClusterModule.controller('addClusterController', ['$scope', '$log', function(
     var key_path = path.join(process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'], '.ssh/id_rsa');
     var key = fs.readFileSync(key_path);
     
-    var conn = new Connection();
+    conn = new Connection();
     
     conn.on('ready', function() {
       consoleLog("Connection ready");
       
       
       conn.exec('uptime', function(err, stream) {
-        if (err) throw err;
+        if (err) {
+          consoleLog("ERROR: " + err, logseverity.ERROR);
+        }
         stream.on('exit', function(code, signal) {
           consoleLog('Stream :: exit :: code: ' + code + ', signal: ' + signal, logseverity.WARN);
+          $scope.$apply(function() {
+            $scope.formDisabled = false;
+          });
+          
         }).on('close', function() {
           consoleLog('Stream :: close');
-          conn.end();
         }).on('data', function(data) {
+          $timeout(tryconnection, 5000);
           consoleLog('STDOUT: ' + data);
         }).stderr.on('data', function(data) {
           consoleLog('STDERR: ' + data, logseverity.ERROR);
@@ -38,19 +67,35 @@ addClusterModule.controller('addClusterController', ['$scope', '$log', function(
       
       
     }).connect({
-      
       host: cluster.hostname,
-      
       port: 22,
-      
       username: cluster.username,
-      
-      privateKey: key
-      
-    }).on('error', function(error) {
+
+      password: cluster.password,
+      tryKeyboard: true,
+      readyTimeout: 60000
+    });
+    /*       privateKey: key, */
+    conn.on('error', function(error) {
       
       consoleLog("Error: " + error.level, logseverity.ERROR);
       consoleLog(error, logseverity.ERROR);
+      $scope.formDisabled = false;
+      
+    }).on('keyboard-interactive', function(name, instructions, instructionsLang, prompts, finishFunc) {
+      consoleLog("Got keyboard-interacive event");
+      consoleLog("Name: " + name + ", instructions: " + instructions + ", prompts: " + prompts);
+      consoleLog(prompts);
+      if (prompts[0].prompt == "Password: ") {
+        finishFunc([cluster.password]);
+      } else {
+        consoleLog(prompts[0].prompt);
+        finishFunc(['1']);
+      }
+      
+    }).on('banner', function(message, language) {
+      
+      consoleLog("banner: " + message);
       
     });
     
@@ -90,7 +135,12 @@ addClusterModule.controller('addClusterController', ['$scope', '$log', function(
         
     }
     
+    $log.info(message);
     $('#sshConsole').append(consoleLine);
+    
+    // Scroll to bottom
+    var objDiv = document.getElementById("sshConsole");
+    objDiv.scrollTop = objDiv.scrollHeight;
     
     
   };
@@ -105,6 +155,6 @@ addClusterModule.controller('addClusterController', ['$scope', '$log', function(
   
   $(window).resize($scope.updateConsoleHeight);
   
-  
+  process.on("uncaughtException", function(err) { alert("error: " + err); });
   
 }]);
