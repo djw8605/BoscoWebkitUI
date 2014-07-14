@@ -1,6 +1,6 @@
 
 
-app = angular.module('boscouiApp', [ 'boscouiApp.sidebarController', 'boscouiApp.jobsController', 'boscouiApp.addClusterController', 'ngRoute' ])
+app = angular.module('boscouiApp', [ 'boscouiApp.sidebarController', 'boscouiApp.jobsController', 'boscouiApp.addClusterController', 'boscouiApp.addclusterWarningController', 'ngRoute' ])
 
   .config ['$routeProvider'
     ($routeProvider) ->
@@ -16,7 +16,8 @@ app = angular.module('boscouiApp', [ 'boscouiApp.sidebarController', 'boscouiApp
         controller: 'clusterController'
         })
       .when('/addcluster_warning', {
-        templateUrl: 'html/addcluster_warning.html'
+        templateUrl: 'html/addcluster_warning.html',
+        controller: 'addclusterWarningController'
         })
       .when('/addcluster', {
         templateUrl: 'html/addcluster.html',
