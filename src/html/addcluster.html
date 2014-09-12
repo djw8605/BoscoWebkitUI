@@ -43,6 +43,23 @@
         connection is maintined while the application is running.
       </p>
       
+      <div ng-show="cluster.promptReady">
+        <form role="form">
+          <fieldset>
+            <div class="form-group">
+              <label for="promptResponse">
+                <pre>{{cluster.prompt}}
+                </pre>
+              </label>
+              
+              <input type="password" class="form-control" ng-model="cluster.promptResponse">
+            </div>
+          </fieldset>
+          <button type="submit" class="btn btn-info" ng-click="submitPromptResponse(cluster.promptResponse)">Submit</button>
+        </form>
+
+      </div>
+      
     </div>
   </div>
   

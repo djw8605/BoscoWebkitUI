@@ -27,6 +27,12 @@ addClusterModule.controller('addClusterController', ['$scope', '$log', '$timeout
 
   }
   
+  reset_form = function() {
+    $scope.$apply(function() {
+      $scope.formDisabled = false;
+    });
+  }
+  
   
   $scope.startConnection = function (cluster) {
     clearConsole();
@@ -48,15 +54,15 @@ addClusterModule.controller('addClusterController', ['$scope', '$log', '$timeout
       conn.exec('uptime', function(err, stream) {
         if (err) {
           consoleLog("ERROR: " + err, logseverity.ERROR);
+          reset_form();
         }
         stream.on('exit', function(code, signal) {
           consoleLog('Stream :: exit :: code: ' + code + ', signal: ' + signal, logseverity.WARN);
-          $scope.$apply(function() {
-            $scope.formDisabled = false;
-          });
+          reset_form();
           
         }).on('close', function() {
           consoleLog('Stream :: close');
+          reset_form();
         }).on('data', function(data) {
           $timeout(tryconnection, 5000);
           consoleLog('STDOUT: ' + data);
@@ -80,18 +86,30 @@ addClusterModule.controller('addClusterController', ['$scope', '$log', '$timeout
       
       consoleLog("Error: " + error.level, logseverity.ERROR);
       consoleLog(error, logseverity.ERROR);
-      $scope.formDisabled = false;
+      reset_form();
       
     }).on('keyboard-interactive', function(name, instructions, instructionsLang, prompts, finishFunc) {
       consoleLog("Got keyboard-interacive event");
+      
+      $scope.$apply(function() {
+        // Put the prompt in the on-screen form
+        $scope.cluster.promptResponse = "";
+        $scope.cluster.prompt = prompts[0].prompt;
+        $scope.cluster.promptReady = true;
+        $scope.cluster.promptFinishFunc = finishFunc;
+      });
+      
       consoleLog("Name: " + name + ", instructions: " + instructions + ", prompts: " + prompts);
       consoleLog(prompts);
+      
+      /*
       if (prompts[0].prompt == "Password: ") {
         finishFunc([cluster.password]);
       } else {
         consoleLog(prompts[0].prompt);
         finishFunc(['1']);
       }
+      */
       
     }).on('banner', function(message, language) {
       
@@ -107,6 +125,14 @@ addClusterModule.controller('addClusterController', ['$scope', '$log', '$timeout
     WARN: 1,
     ERROR: 2
   };
+  
+  
+  $scope.submitPromptResponse = function(promptResponse) {
+    
+    $scope.cluster.promptFinishFunc([promptResponse]);
+    $scope.cluster.promptReady = false;
+    
+  }
   
   clearConsole = function() {
     $('#sshConsole').empty();
