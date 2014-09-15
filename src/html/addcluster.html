@@ -17,10 +17,13 @@
             <input type="text" class="form-control" id="username" ng-model="cluster.username" placeholder="bill">
           </div>
           
+          <!-- Don't show password 
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" id="password" ng-model="cluster.password" placeholder="*******">
           </div>
+          
+          -->
         </fieldset>
         
         <button type="submit" class="btn btn-default" ng-click="startConnection(cluster)" ng-disabled="formDisabled" >Connect</button>
@@ -30,20 +33,22 @@
     
     
     <div class="col-sm-7">
-      <h2>Connecting a Cluster</h2>
+      <div ng-hide="cluster.promptReady" class="cluster-prompt-intro">
+        <h2>Connecting a Cluster</h2>
+        
+        <p>
+          Connecting to a cluster allows submission to the remote cluster, as well
+          as monitoring of the cluster.
+        </p>
+        
+        <p>
+          This cluster information is not stored locally.  Once a successful 
+          connection has been established to the remote cluster, a persistent 
+          connection is maintined while the application is running.
+        </p>
+      </div>
       
-      <p>
-        Connecting to a cluster allows submission to the remote cluster, as well
-        as monitoring of the cluster.
-      </p>
-      
-      <p>
-        This cluster information is not stored locally.  Once a successful 
-        connection has been established to the remote cluster, a persistent 
-        connection is maintined while the application is running.
-      </p>
-      
-      <div ng-show="cluster.promptReady">
+      <div ng-show="cluster.promptReady" class="cluster-prompt">
         <form role="form">
           <fieldset>
             <div class="form-group">
@@ -52,7 +57,7 @@
                 </pre>
               </label>
               
-              <input type="password" class="form-control" ng-model="cluster.promptResponse">
+              <input id="clusterPropmt" type="password" class="form-control" ng-model="cluster.promptResponse" focus-on-visibility>
             </div>
           </fieldset>
           <button type="submit" class="btn btn-info" ng-click="submitPromptResponse(cluster.promptResponse)">Submit</button>

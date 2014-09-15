@@ -3,6 +3,21 @@
 addClusterModule = angular.module('boscouiApp.addClusterController', []);
 
 
+addClusterModule.directive('FocusOnVisibility', function () {
+  return function (scope, element, attrs) {
+      //Watch the showInput model
+      scope.$watch('showInput', function () {
+          //If the model changes to true, focus on the element
+          if (scope.showInput === true) {
+              //Assumes that the element has the focus method
+              //If not, then you can have your own logic to focus here
+              element.focus();
+          }
+      });
+    };
+});
+
+
 addClusterModule.controller('addClusterController', ['$scope', '$log', '$timeout', function($scope, $log, $timeout) {
   
   
@@ -77,10 +92,12 @@ addClusterModule.controller('addClusterController', ['$scope', '$log', '$timeout
       port: 22,
       username: cluster.username,
 
-      password: cluster.password,
       tryKeyboard: true,
-      readyTimeout: 60000
+      readyTimeout: 99999999
+
     });
+    /*          debug: consoleLog */
+    /*      password: cluster.password, */
     /*       privateKey: key, */
     conn.on('error', function(error) {
       
@@ -97,6 +114,7 @@ addClusterModule.controller('addClusterController', ['$scope', '$log', '$timeout
         $scope.cluster.prompt = prompts[0].prompt;
         $scope.cluster.promptReady = true;
         $scope.cluster.promptFinishFunc = finishFunc;
+        $("#clusterPrompt").focus();
       });
       
       consoleLog("Name: " + name + ", instructions: " + instructions + ", prompts: " + prompts);
