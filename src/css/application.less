@@ -11,7 +11,9 @@
   transition: all 0.4s ease 0s;
 }
 
-
+hr {
+  color: @md-clr-ui-dividers;
+}
 
 #sidebar-wrapper {
   margin-left: -@sidepanelWidth;
@@ -37,8 +39,9 @@
   padding: 0.5em;
   background-color: @md-clr-blue;
   margin-top: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 0.5em;
   text-align: center;
+  .drop-shadow(0, 1px, 2px, 0.4);
   
 }
 
@@ -164,7 +167,7 @@
   background-color: black;
   color: white;
   overflow-y: scroll;
-  .rounded(5px);
+  //.rounded(5px);
   padding: 0.5em;
   width: 100%;
   

@@ -182,6 +182,7 @@ addClusterModule.controller('addClusterController', ['$scope', '$log', '$timeout
   }
   
   $(window).resize($scope.updateConsoleHeight);
+  $(window).load($scope.updateConsoleHeight);
   
   process.on("uncaughtException", function(err) { alert("error: " + err); });
   

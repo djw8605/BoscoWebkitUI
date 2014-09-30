@@ -1,40 +1,66 @@
 
 
-<h4 class="header">Jobs</h4>
+<h2 class="header">Jobs</h2>
 
-<div class="row">
-  <div class="col-md-4">
+<div id="wrapper">
+  <div id="sidebar-wrapper" ng-controller="sidebarController">
+    <h4 class="header">Cluster Status</h4>
+    <ul class="sidebar-nav nav nav-pills nav-stacked">
+      <li ng-repeat="cluster in clusters" class="cluster-select">
+        <a ng-href="#cluster/{{ cluster.id }}">{{ cluster.name }}
+          <span class="badge">{{cluster.errored}}</span>
+          <!--
+          <div class="pull-right status">
+            <div class="errored">
+              {{ cluster.errored }}
+            </div>
+            <div class="running">
+              {{ cluster.running }}
+            </div>
+          </div>
+        -->
+        </a>
+        <hr />
+      </li>
+    </ul>
 
   </div>
-</div>
+  <div id="page-content-wrapper">
 
-<div class="row table-row">
-  <div class="col-md-12 table-column">
-    <table class="job-table table table-condensed table-striped table-hover">
-      <thead>
-        <tr>
-          <th></th>
-          <th>ID</th>
-          <th>Submitted</th>
-          <th>Runtime</th>
-          <th>State</th>
-          <th>Location</th>
-          <th>Command</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="job in jobs" ng-class="{danger: checkJobHeld(job) && !selected, success: checkJobRunning(job) && !selected, warning: selected}">
-          <td><input type="checkbox" ng-model="selected"></td>
-          <td>{{ job.id }}</td>
-          <td>{{ job.submitted }}</td>
-          <td>{{ job.runtime }}</td>
-          <td>{{ job.state }}</td>
-          <td>{{ job.location }}</td>
-          <td>{{ job.cmd }}</td>
+  <div class="row">
+    <div class="col-md-4">
 
-        </tr>
-      </tbody>
+    </div>
+  </div>
 
-    </table>
+  <div class="row table-row">
+    <div class="col-md-12 table-column">
+      <table class="job-table table table-condensed table-striped table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Submitted</th>
+            <th>Runtime</th>
+            <th>State</th>
+            <th>Location</th>
+            <th>Command</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="job in jobs" ng-class="{danger: checkJobHeld(job) && !selected, success: checkJobRunning(job) && !selected, warning: selected}">
+            <td><input type="checkbox" ng-model="selected"></td>
+            <td>{{ job.id }}</td>
+            <td>{{ job.submitted }}</td>
+            <td>{{ job.runtime }}</td>
+            <td>{{ job.state }}</td>
+            <td>{{ job.location }}</td>
+            <td>{{ job.cmd }}</td>
+
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
   </div>
 </div>
