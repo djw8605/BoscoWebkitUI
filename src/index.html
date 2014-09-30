@@ -6,7 +6,16 @@
   <script src="lib/angular-animate.js"></script>
   <link href="css/bootstrap.css" rel="stylesheet">
   <link href="css/application.css" rel="stylesheet">
+  <link href="lib/icons-material-design.css" rel="stylesheet">
+
   <script src="lib/bootstrap.js"></script>
+  
+  <!-- Bootstrap material look -->
+  <link href="css/ripples.css" rel="stylesheet">
+  <link href="css/material.css" rel="stylesheet">
+  <script src="lib/ripples.js"></script> 
+  <script src="lib/material.js"></script>
+
 
   <script src="js/jobsService.js"></script>
   <script src="js/sidebarCtrl.js"></script>
@@ -24,14 +33,12 @@
 
 <div id="wrapper">
   <div id="sidebar-wrapper" ng-controller="sidebarController">
-    <ul class="sidebar-nav">
-      <li>Jobs</li>
-      <li>Clusters</li>
-      <li>Debug</li>
-      <li class="sidebar-divider">Cluster Status</li>
+    <h4 class="header">Cluster Status</h4>
+    <ul class="sidebar-nav nav nav-pills nav-stacked">
       <li ng-repeat="cluster in clusters" class="cluster-select">
-        <hr ng-show="$first" />
         <a ng-href="#cluster/{{ cluster.id }}">{{ cluster.name }}
+          <span class="badge">{{cluster.errored}}</span>
+          <!--
           <div class="pull-right status">
             <div class="errored">
               {{ cluster.errored }}
@@ -40,6 +47,7 @@
               {{ cluster.running }}
             </div>
           </div>
+        -->
         </a>
         <hr />
       </li>

@@ -1,16 +1,32 @@
 
 <div class="container-fluid">
+  <h4>Setting Up</h4>
   <div class="row">
     <div class="col-md-12">
       <h2 class="centered">
         No clusters have been configured.
       </h2>
-      <p>
-        <a href="#/addcluster" class="btn btn-primary btn-lg btn-block">Add New Cluster</a>
-      </p>
-      <p>
-        <a href="#/installbosco" class="btn btn-primary btn-lg btn-block" ng-show="installbosco">Install Bosco</a>
-      </p>
+      <div class="list-group">
+        <div class="list-group-item">
+          <div class="row-action-primary">
+            <i class="icon-material-add"></i>
+          </div>
+          <div class="row-content">
+            <h4><a href="#/addcluster">Add a new cluster</a></h4>
+            <p class="list-group-item-text">Add a new cluster to the application in order to connect to it and manage jobs.</p>
+          </div>
+        </div>
+        <div class="list-group-separator"></div>
+        <div class="list-group-item" ng-show="installbosco">
+          <div class="row-action-primary">
+            <i class="icon-material-archive"></i>
+          </div>
+          <div class="row-content">
+            <h4><a href="#/installbosco">Install Bosco</a></h4>
+            <p class="list-group-item-text">Install Bosco on your local machine</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

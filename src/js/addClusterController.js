@@ -1,22 +1,6 @@
 
 
-addClusterModule = angular.module('boscouiApp.addClusterController', []);
-
-
-addClusterModule.directive('FocusOnVisibility', function () {
-  return function (scope, element, attrs) {
-      //Watch the showInput model
-      scope.$watch('showInput', function () {
-          //If the model changes to true, focus on the element
-          if (scope.showInput === true) {
-              //Assumes that the element has the focus method
-              //If not, then you can have your own logic to focus here
-              element.focus();
-          }
-      });
-    };
-});
-
+addClusterModule = angular.module('boscouiApp.addClusterController', [ 'ngAnimate' ]);
 
 addClusterModule.controller('addClusterController', ['$scope', '$log', '$timeout', function($scope, $log, $timeout) {
   

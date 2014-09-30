@@ -7,9 +7,8 @@ addClusterWarningModule.controller('addclusterWarningController', ['$scope', '$l
   
   var detectOS = function() {
     // Detect the platform, and set $scope.installbosco if it's a bosco supported platform
-    process = require("process");
     var isWindows = /^win/.test(process.platform);
-    $scope.boscoinstall = !isWindows
+    $scope.installbosco = !isWindows
     
     
   }
